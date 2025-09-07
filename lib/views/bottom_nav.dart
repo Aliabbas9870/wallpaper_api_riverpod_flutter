@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:wallpaper/admin/admin_login.dart';
 import 'package:wallpaper/core/app_colors.dart';
 import 'package:wallpaper/views/categories_view.dart';
 import 'package:wallpaper/views/home_view.dart';
@@ -20,6 +21,7 @@ class _BottomNavState extends State<BottomNav> {
   late HomeView home;
   late CategoriesView categories;
   late SearchView search;
+  late AdminLogin admin;
 late Widget currentPage;
   @override
   void initState() {
@@ -27,7 +29,8 @@ late Widget currentPage;
     home=HomeView();
     categories=CategoriesView();
     search=SearchView();
-    pages=[home,categories,search];
+    admin=AdminLogin();
+    pages=[home,categories,search,admin];
     currentPage=home;
 
 
@@ -49,6 +52,7 @@ late Widget currentPage;
           Icon(Icons.home,size: 20,color: AppColors.primary,),
           Icon(Icons.category,size: 20,color: AppColors.primary,),
           Icon(Icons.search,size: 20,color: AppColors.primary,),
+          Icon(Icons.admin_panel_settings,size: 20,color: AppColors.primary,),
         ],
         animationDuration: const Duration(milliseconds: 500),
         onTap: (index){

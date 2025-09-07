@@ -38,6 +38,10 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   http: 
   cached_network_image: ^3.4.1
+  firebase_auth: ^6.0.2
+  cloud_firestore: ^6.0.1
+  firebase_core: ^4.1.0
+  random_string: 
 
 dev_dependencies:
   flutter_test:

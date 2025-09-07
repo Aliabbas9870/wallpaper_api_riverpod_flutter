@@ -4,6 +4,10 @@ import 'package:wallpaper/core/app_colors.dart';
 import 'package:wallpaper/provider/search_photo_provider.dart';
 import 'package:wallpaper/widgets/widget.dart';
 
+
+
+final isSearchingProvider = StateProvider<bool>((ref) => false);
+
 class SearchView extends ConsumerWidget {
   const SearchView({super.key});
 
@@ -28,26 +32,49 @@ class SearchView extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 10),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            padding: const EdgeInsets.symmetric(horizontal: 14),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: AppColors.lightGrey,
+         
+
+         Container(
+  margin: const EdgeInsets.symmetric(horizontal: 16),
+  padding: const EdgeInsets.symmetric(horizontal: 14),
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(12),
+    color: AppColors.lightGrey,
+  ),
+  child: Consumer(
+    builder: (context, ref, _) {
+      final isSearching = ref.watch(isSearchingProvider);
+      final searchNotifier = ref.read(searchProvider.notifier);
+
+      return TextField(
+        controller: searchController,
+        decoration: InputDecoration(
+          suffixIcon: IconButton(
+            icon: Icon(
+              isSearching ? Icons.close : Icons.search_outlined,
             ),
-            child: TextField(
-              controller: searchController,
-              decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    searchNotifier.searchPhotos(searchController.text);
-                  },
-                  icon: const Icon(Icons.search_outlined),
-                ),
-                border: InputBorder.none,
-              ),
-            ),
+            onPressed: () {
+              if (isSearching) {
+                // Close → clear text & reset results
+                searchController.clear();
+                ref.read(isSearchingProvider.notifier).state = false;
+                searchNotifier.state = SearchState.initial();
+              } else {
+                // Search → fetch photos
+                if (searchController.text.isNotEmpty) {
+                  searchNotifier.searchPhotos(searchController.text);
+                  ref.read(isSearchingProvider.notifier).state = true;
+                }
+              }
+            },
           ),
+          border: InputBorder.none,
+        ),
+      );
+    },
+  ),
+),
+
           const SizedBox(height: 16),
           Expanded(
             child: searchState.isLoading
