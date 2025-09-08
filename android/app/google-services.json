@@ -147,6 +147,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "489774219154-reqnpcv4uv4ljjae88dlenlqp5eb3slj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wallpaper",
+            "certificate_hash": "3c9cc7654af16bfc272d05688e1d82674eb2e0e4"
+          }
+        },
+        {
           "client_id": "489774219154-131ekh92jre2i5ao5f87uhq5qe3ljslh.apps.googleusercontent.com",
           "client_type": 3
         }
